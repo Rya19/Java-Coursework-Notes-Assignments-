@@ -1,0 +1,74 @@
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+
+
+
+public class Lab06 extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+
+        TextField Textfield_TempInput = new TextField(); //create text field object
+        Textfield_TempInput.setPromptText("Enter Temperature"); 
+        
+        Button Button_ConvToFahrenheit = new Button("Convert to Fahrenheit"); //buttons
+        Button Button_ConvToCelsius = new Button("Convert to Celsius");
+        
+        Label Result_Label = new Label(); //create 2 labels
+        Label Label_Advice = new Label();
+        
+        // Event Handlers for the buttons
+        Button_ConvToFahrenheit.setOnAction(e -> {
+            double celsius = Double.parseDouble(Textfield_TempInput.getText()); //conversions
+            double fahrenheit = (9.0 / 5.0 * celsius) + 32;
+            Result_Label.setText(String.format("%.2f °F", fahrenheit));
+                
+            if (celsius < 10) {
+                Label_Advice.setText("Too Cool");
+            }
+            else if {
+                (celsius > 30) Label_Advice.setText("Too Hot");
+                }
+
+            else {
+                Label_Advice.setText("Nice Temperature");
+            }
+            
+        });
+        
+        Button_ConvToCelsius.setOnAction(e -> {
+            
+            double fahrenheit = Double.parseDouble(Textfield_TempInput.getText());
+            double celsius = (5.0 / 9.0) * (fahrenheit - 32);
+            Result_Label.setText(String.format("%.2f °C", celsius));
+                
+            if (fahrenheit < 50) {Label_Advice.setText("Too Cool");
+        }
+
+            else if {(fahrenheit > 86) Label_Advice.setText("Too Hot");
+    }
+
+            else {Label_Advice.setText("Nice Temperature");
+}
+            
+        });
+        
+        // Layout with vbox instead of grid
+        VBox Temp_Scene = new VBox(10, Textfield_TempInput, Button_ConvToFahrenheit, Button_ConvToCelsius, Result_Label, Label_Advice); //create box
+        Temp_Scene.setPadding(new Insets(15));
+        
+        // Scene and Stage Setup
+        primaryStage.setScene(new Scene(Temp_Scene, 300, 200));
+        primaryStage.setTitle("Temperature Converter");
+        primaryStage.show();
+    }
+    
+    public static void main(String[] args) {
+        launch(args);
+    }
+}

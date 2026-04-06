@@ -1,0 +1,97 @@
+import java.util.*;
+public class Lab01 {
+
+    public static void main(String[] args) {
+        Scanner user_input = new Scanner(System.in);
+        int user_row;
+        int user_column;
+
+        System.out.println("Enter the number of rows: ");
+        user_row = user_input.nextInt();
+        System.out.println("Enter the number of columns: ");
+        user_column = user_input.nextInt();
+
+
+        String[][] Student_seat = new String[user_row][user_column]; //Array of user size
+
+
+        for(int r = 0; r < Student_seat.length; r++) { //for assigning names to each row
+            for(int c = 0; c < Student_seat[r].length; c++) { 
+                System.out.println("Seat " + "[" + r + "]" + "[" + c + "]");
+                Student_seat[r][c] = user_input.next(); //next will read one at a time
+            }
+        }
+
+
+        System.out.println("Current seating arrangements");
+        for(int r = 0; r < Student_seat.length; r++) { 
+            for(int c = 0; c < Student_seat[r].length; c++) { 
+                System.out.printf("%-8s", Student_seat[r][c]);
+            }
+            System.out.println();
+        }
+
+
+        Search_Array(Shuffle_Array(Student_seat));
+        user_input.close();
+
+    }
+
+    static void Search_Array(String[][] user_2d_array) {
+        Scanner user_input = new Scanner(System.in);
+        String User_Name_Search = "";
+
+        System.out.println("Enter a name to search for: ");
+        User_Name_Search = user_input.nextLine();
+
+        for(int r = 0; r < user_2d_array.length; r++) { 
+            for(int c = 0; c < user_2d_array[r].length; c++) { 
+                if (user_2d_array[r][c].equals(User_Name_Search)) {  
+                    System.out.println("Located at position: " + "[" + r + "]" + "[" + c + "]");
+                    break;
+                }
+            }
+        }
+        //System.out.println("Not found");
+
+        user_input.close();
+
+    }
+
+
+
+
+    static String[][] Shuffle_Array(String[][] user_2d_array) {
+        Random random = new Random();
+        String[][] new_array = new String[user_2d_array.length][user_2d_array[0].length];
+
+        for(int r = 0; r < user_2d_array.length; r++) { 
+            for(int c = 0; c < user_2d_array[r].length; c++) { 
+                int next_row = random.nextInt(user_2d_array.length);
+                int next_col = random.nextInt(user_2d_array[next_row].length);
+
+                String temp = user_2d_array[r][c];
+                user_2d_array[r][c] = user_2d_array[next_row][next_col];
+                user_2d_array[next_row][next_col] = temp;
+            }
+        }
+
+        System.out.println();
+        System.out.println("Shuffled seating arrangements");
+        for(int r = 0; r < user_2d_array.length; r++) { 
+            for(int c = 0; c < user_2d_array[r].length; c++) { 
+                System.out.printf("%-8s", user_2d_array[r][c]);
+            }
+            System.out.println();
+        }
+
+        for(int r = 0; r < user_2d_array.length; r++) { 
+            for(int c = 0; c < user_2d_array[r].length; c++) { 
+                new_array[r][c] = user_2d_array[r][user_2d_array[0].length-1-c];
+            }
+        }
+
+        return new_array;
+        
+    }
+}

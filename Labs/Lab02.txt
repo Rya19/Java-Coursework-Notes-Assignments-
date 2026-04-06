@@ -1,0 +1,86 @@
+import java.util.Arrays;
+
+public class Lab02 {
+
+    public static void main(String[] args) {
+        Library lb1 = new Library();
+        lb1.getTotalBooksAdded();
+        lb1.addNewBook("Book1");
+        lb1.addNewBook("Book2");
+        lb1.addNewBook("Book3");
+        lb1.removeBook("Book1");
+        lb1.getTotalBooksAdded();
+    }
+}
+
+class Library {
+    //variables
+    static private int totalBooksAdded; //tracks total # of books 
+
+    private String[] Books;
+    private int numberOfBooks; //tracks how many books are in the array currently
+
+    Library() { //constructor with no paremeters
+
+    }
+
+    Library(String[] Books, int numberOfBooks) { //constructor to create objects
+        this.Books = new String[3];
+        this.numberOfBooks = 0;
+        totalBooksAdded++;
+    }
+
+
+    public static int getTotalBooksAdded() { //returns total # of books
+        return totalBooksAdded;
+    }
+
+    
+    public void addNewBook(String BookName) {
+        if (numberOfBooks == Books.length) { //or is index OOB of array...
+            String[] BooksCopy = new String[Books.length*2];//Make a new array copy the size of an index
+
+            for (int i = 0; i < Books.length; i++) { //put the elements from the books array into the new array
+                BooksCopy[i] = Books[i];
+            }
+
+            Books = BooksCopy;
+
+            this.Books[numberOfBooks + 1] = BookName;
+            totalBooksAdded++;
+            numberOfBooks++;
+            System.out.println("Book successfully added and size increased.");
+        }
+        else {
+            this.Books[numberOfBooks] = BookName;
+            totalBooksAdded++;
+            numberOfBooks++;
+            System.out.println("Book successfully added.");
+        }
+    }
+
+    public boolean removeBook(String bookName) {
+
+        for(int i = 0; i < numberOfBooks; i++) {
+            if (Books[i].equals(bookName)) {
+                Books[i] = null;
+                for (int ind = i ; ind < numberOfBooks - 1; ind++) { //put the elements from the books array into the new array
+                    Books[ind] = Books[ind + 1];
+                }
+                numberOfBooks--;
+                return true;
+            }
+
+            }
+            return false; 
+        }
+    
+
+    public void getBooks() {
+        System.out.print("Current Books: ");
+        System.out.println(Arrays.toString(Books));
+    }
+
+    }
+
+
